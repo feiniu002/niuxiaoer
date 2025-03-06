@@ -1,0 +1,30 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    image: ccr.ccs.tencentyun.com/feiniuxuelianghua/niuxiaoer-backend:latest
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: ccr.ccs.tencentyun.com/feiniuxuelianghua/niuxiaoer-frontend:latest
+    ports:
+      - "3000:3000"
+    restart: always
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    image: ccr.ccs.tencentyun.com/feiniuxuelianghua/niuxiaoer-nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+
+networks:
+  app-network:
+    driver: bridge
